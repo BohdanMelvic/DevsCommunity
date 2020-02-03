@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../store/actions/alertActions';
+import PropTypes from 'prop-types';
 //import axios from 'axios';
 
-export const Register = () => {
+const Register = (props) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,7 +19,7 @@ export const Register = () => {
     const onSubmit = async e => {
         e.preventDefault();
         if (password !== password2) {
-            console.log("passwords are not equal");
+            props.setAlert('Passwords don\'t match', 'danger', 3000);
         } else {
             // const newUser = {
             //     name,
@@ -93,3 +96,9 @@ export const Register = () => {
         </Fragment>
     )
 }
+
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired
+}
+
+export default connect(null, { setAlert })(Register);
