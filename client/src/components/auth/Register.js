@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../store/actions/alertActions';
+import { register } from '../../store/actions/authActions';
 import PropTypes from 'prop-types';
-//import axios from 'axios';
 
 const Register = (props) => {
     const [formData, setFormData] = useState({
@@ -21,25 +21,7 @@ const Register = (props) => {
         if (password !== password2) {
             props.setAlert('Passwords don\'t match', 'danger', 3000);
         } else {
-            // const newUser = {
-            //     name,
-            //     email,
-            //     password
-            // };
-
-            // try {
-            //     const config = {
-            //         headers: {
-            //             "Content-Type": "application/json"
-            //         }
-            //     };
-            //     const body = JSON.stringify(newUser);
-            //     const res = await axios.post('/api/users', body, config);
-            //     console.log(res.data);
-            // } catch (error) {
-            //     console.error(error.message);
-            // }
-            console.log('SUCCESS');
+            props.register({ name, email, password });
         }
     };
 
@@ -55,7 +37,7 @@ const Register = (props) => {
                     name="name"
                     value={name}
                     onChange={ e => onChange(e) }
-                    required />
+                     />
                 </div>
                 <div className="form-group">
                 <input 
@@ -74,7 +56,7 @@ const Register = (props) => {
                     placeholder="Password"
                     name="password"
                     onChange={ e => onChange(e) }
-                    minLength="6"
+                   
                     value={password}
                 />
                 </div>
@@ -84,7 +66,7 @@ const Register = (props) => {
                     placeholder="Confirm Password"
                     name="password2"
                     onChange={ e => onChange(e) }
-                    minLength="6"
+                   
                     value={password2}
                 />
                 </div>
@@ -98,7 +80,8 @@ const Register = (props) => {
 }
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
 }
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
