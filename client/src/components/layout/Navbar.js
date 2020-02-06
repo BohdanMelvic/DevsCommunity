@@ -7,6 +7,12 @@ import PropTypes from 'prop-types';
 const Navbar = (props) => {
     const authLinks = (
         <ul>
+            <li>           
+                <Link to='/dashboard'>
+                    <i className='fas fa-user'></i>{' '}
+                    <span className="hide-sm">Dashboard</span>
+                </Link>
+            </li>
             <li>
                 <Link onClick={props.logout} to="/">
                     <i className='fas fa-sign-out-alt'></i>{' '}
