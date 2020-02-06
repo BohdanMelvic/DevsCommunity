@@ -25,6 +25,14 @@ export default function(state = initialState, action) {
                 loading: false
             };
 
+        case (actionType.PROFILE_CLEAR):
+            return {
+                ...state,
+                profile: null,
+                repos: [],
+                loading: false
+            };
+
         default:
             return state;
     
