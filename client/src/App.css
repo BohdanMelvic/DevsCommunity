@@ -126,6 +126,11 @@ img {
   margin: 3rem 0;
 }
 
+.fas,
+.fab {
+  margin: 0.3rem;
+}
+
 .btn {
   display: inline-block;
   background: var(--light-color);
