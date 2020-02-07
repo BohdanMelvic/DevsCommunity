@@ -3,9 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './redusers/indexReducers';
 
-const initialState = {
-
-};
+const initialState = {};
 
 const middleWare = [thunk];
 
