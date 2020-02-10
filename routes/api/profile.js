@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 const { check, validationResult } = require('express-validator');
 const request = require('request');
 const config = require('config');
@@ -139,6 +140,7 @@ router.delete('/', auth, async (req, res) => {
     try {
         await Profile.findOneAndRemove({user: req.user.id});
         await User.findOneAndRemove({_id: req.user.id});
+        await Post.deleteMany({user: req.user.id});
         res.json({msg: 'User deleted'});
     } catch (error) {
         console.error(error.message);
@@ -203,6 +205,7 @@ router.put('/experience', [auth, [
 router.delete('/experience/:exp_id', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({user: req.user.id});
+
         const removeIndex = profile.experience.map(item => item.id)
                                 .indexOf(req.params.exp_id);
 
