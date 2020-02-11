@@ -4,7 +4,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../store/actions/profileActions';
 
-const EditProfile = props => {
+const EditProfile = ({
+    profile: {profile, loading},
+    getCurrentProfile,
+    createProfile,
+    history
+}) => {
     const [formData, setFormData] = useState({
         company: '',
         website: '',
@@ -23,23 +28,23 @@ const EditProfile = props => {
     const [displaySocialInputs, toggleSocialIntputs] = useState(false);
 
     useEffect(() => {
-        props.getCurrentProfile();
+        getCurrentProfile();
 
         setFormData({
-            company: props.profile.loading || !props.profile.profile.company ? '' : props.profile.profile.company,
-            website: props.profile.loading || !props.profile.profile.website ? '' : props.profile.profile.website,
-            location: props.profile.loading || !props.profile.profile.location ? '' : props.profile.profile.location,
-            status: props.profile.loading || !props.profile.profile.status ? '' : props.profile.profile.status,
-            skills: props.profile.loading || !props.profile.profile.skills ? '' : props.profile.profile.skills.join(','),
-            githubusername: props.profile.loading || !props.profile.profile.githubusername ? '' : props.profile.profile.githubusername,
-            bio: props.profile.loading || !props.profile.profile.bio ? '' : props.profile.profile.bio,
-            twitter: props.profile.loading || !props.profile.profile.social ? '' : props.profile.profile.social.twitter,
-            facebook: props.profile.loading || !props.profile.profile.social ? '' : props.profile.profile.social.facebook,
-            linkedin: props.profile.loading || !props.profile.profile.social ? '' : props.profile.profile.social.linkedin,
-            youtube: props.profile.loading || !props.profile.profile.social ? '' : props.profile.profile.social.youtube,
-            instagram: props.profile.loading || !props.profile.profile.social ? '' : props.profile.profile.social.instagram
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            status: loading || !profile.status ? '' : profile.status,
+            skills:loading || !profile.skills ? '' : profile.skills.join(','),
+            githubusername:loading || !profile.githubusername ? '' : profile.githubusername,
+            bio: loading || !profile.bio ? '' : profile.bio,
+            twitter: loading || !profile.social ? '' : profile.social.twitter,
+            facebook: loading || !profile.social ? '' : profile.social.facebook,
+            linkedin:loading || !profile.social ? '' : profile.social.linkedin,
+            youtube: loading || !profile.social ? '' : profile.social.youtube,
+            instagram: loading || !profile.social ? '' : profile.social.instagram
         });
-    }, [props.profile.loading]);
+    }, [getCurrentProfile, loading]);
 
     const {
         company,
@@ -63,7 +68,7 @@ const EditProfile = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        props.createProfile(formData, props.history, true);
+        createProfile(formData, history, true);
         window.scrollTo(0, 0)
     }
 

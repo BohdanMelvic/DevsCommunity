@@ -48,9 +48,8 @@ export default function(state = initialState, action) {
                 repos: payload,
                 loading: false
             };
-            
+
         default:
             return state;
-    
     }
 } 
