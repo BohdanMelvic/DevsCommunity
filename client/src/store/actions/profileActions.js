@@ -20,6 +20,64 @@ export const getCurrentProfile = () => async dispatch => {
     }
 }
 
+// Get all profiles
+export const getAllProfiles = () => async dispatch => {
+    dispatch({ type: actionType.PROFILE_CLEAR });
+
+    try {
+        const res = await axios.get('/api/profile');
+        
+        dispatch({
+            type: actionType.GET_PROFILES,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: actionType.PROFILE_ERROR,
+            payload: {msg: error.response.statusText, 
+                        status: error.response.status}
+        });
+    }
+}
+
+// Get profile by ID
+export const getProfileById = userId => async dispatch => {
+
+    try {
+        const res = await axios.get(`/api/profile/user/${userId}`);
+        
+        dispatch({
+            type: actionType.PROFILE_GET,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: actionType.PROFILE_ERROR,
+            payload: {msg: error.response.statusText, 
+                        status: error.response.status}
+        });
+    }
+}
+
+// Get Github repos
+export const getGithubRepos = username => async dispatch => {
+
+    try {
+        const res = await axios.get(`/api/profile/github/${username}`);
+        
+        dispatch({
+            type: actionType.GET_REPOS,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: actionType.PROFILE_ERROR,
+            payload: {msg: error.response.statusText, 
+                        status: error.response.status}
+        });
+    }
+}
+
 // Create or update profile
 export const createProfile = (formData, history, edit = false) => async dispatch => {
     try {
