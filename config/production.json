@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://bohdan123:bohdan123@devscommunity-rsanc.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken",
+    "githubClientId": "a4bffa73100905ff9d2a",
+    "githubClientSecret": "7d746324461fcf74013d265a8925ac471e65a2dc"
+}
