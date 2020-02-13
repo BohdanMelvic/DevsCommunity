@@ -53,6 +53,24 @@ export default function(state = initialState, action) {
                     : post),
                 loading: false
             };
+
+        case actionType.ADD_COMMENT:
+            return {
+                ...state,
+                post: { ...state.post, comments: payload },
+                loading: false
+            };
+
+        case actionType.REMOVE_COMMENT:
+            return {
+                ...state,
+                post: { 
+                    ...state.post, 
+                    comments: state.post.comments.filter(com => com._id !== payload) 
+                },
+                loading: false
+            };
+
         default:
             return state;
     }
